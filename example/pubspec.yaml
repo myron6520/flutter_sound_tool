@@ -54,28 +54,28 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-      - assets/audio/newComm.wav
-      - assets/audio/receipt.wav
-      - assets/audio/0.wav
-      - assets/audio/1.wav
-      - assets/audio/2.wav
-      - assets/audio/3.wav
-      - assets/audio/4.wav
-      - assets/audio/5.wav
-      - assets/audio/6.wav
-      - assets/audio/7.wav
-      - assets/audio/8.wav
-      - assets/audio/9.wav
-      - assets/audio/dian.wav
-      - assets/audio/yuan.wav
-      - assets/audio/shi.wav
-      - assets/audio/bai.wav
-      - assets/audio/qian.wav
-      - assets/audio/wan.wav
-      - assets/audio/aliPay.wav
-      - assets/audio/wxPay.wav
-      - assets/audio/cashPay.wav
-      - assets/audio/fukuanmacuowu.wav
+    - assets/audio/newComm.wav
+    - assets/audio/receipt.wav
+    - assets/audio/0.wav
+    - assets/audio/1.wav
+    - assets/audio/2.wav
+    - assets/audio/3.wav
+    - assets/audio/4.wav
+    - assets/audio/5.wav
+    - assets/audio/6.wav
+    - assets/audio/7.wav
+    - assets/audio/8.wav
+    - assets/audio/9.wav
+    - assets/audio/dian.wav
+    - assets/audio/yuan.wav
+    - assets/audio/shi.wav
+    - assets/audio/bai.wav
+    - assets/audio/qian.wav
+    - assets/audio/wan.wav
+    - assets/audio/aliPay.wav
+    - assets/audio/wxPay.wav
+    - assets/audio/cashPay.wav
+    - assets/audio/fukuanmacuowu.wav
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -3,6 +3,8 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_sound_tool/flutter_sound_tool.dart';
+import 'package:flutter_sound_tool/sound_info.dart';
+import 'package:flutter_sound_tool_example/a.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +25,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initPlatformState();
+    FlutterSoundTool.loadAssetSoundInfo(A.aliPay);
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -31,8 +34,8 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion =
-          await _flutterSoundToolPlugin.getPlatformVersion() ?? 'Unknown platform version';
+      platformVersion = await FlutterSoundTool.getPlatformVersion() ??
+          'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -55,7 +58,38 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: GestureDetector(
+                  child: Text('新商品'),
+                  onTap: () {
+                    FlutterSoundTool.play([
+                      SoundInfo(path: A.newComm, isAsset: true),
+                    ]);
+                  },
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: GestureDetector(
+                  child: Text('测试\n'),
+                  onTap: () {
+                    FlutterSoundTool.play([
+                      SoundInfo(path: A.aliPay, isAsset: true),
+                      SoundInfo(path: A.zero, isAsset: true),
+                      SoundInfo(path: A.dian, isAsset: true),
+                      SoundInfo(path: A.zero, isAsset: true),
+                      SoundInfo(path: A.one, isAsset: true),
+                      SoundInfo(path: A.yuan, isAsset: true),
+                    ]);
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
