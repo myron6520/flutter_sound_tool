@@ -14,7 +14,10 @@ class FlutterSoundTool {
   static Future<void> play(List<SoundInfo> infos) async {
     methodChannel.invokeMethod<void>(
       'play',
-      infos.map((e) => {"path": e.path, "isAsset": e.isAsset}).toList(),
+      infos
+          .map((e) =>
+              {"path": e.path, "isAsset": e.isAsset, "duration": e.duration})
+          .toList(),
     );
   }
 }

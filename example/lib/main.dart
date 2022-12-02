@@ -75,10 +75,48 @@ class _MyAppState extends State<MyApp> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: GestureDetector(
-                  child: Text('测试\n'),
+                  child: Text('支付宝收款\n'),
                   onTap: () {
                     FlutterSoundTool.play([
                       SoundInfo(path: A.aliPay, isAsset: true),
+                      // SoundInfo(path: A.cashPay, isAsset: true),
+                      // SoundInfo(path: A.wxPay, isAsset: true),
+                      SoundInfo(path: A.zero, isAsset: true),
+                      SoundInfo(path: A.dian, isAsset: true),
+                      SoundInfo(path: A.zero, isAsset: true),
+                      SoundInfo(path: A.one, isAsset: true),
+                      SoundInfo(path: A.yuan, isAsset: true),
+                    ]);
+                  },
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: GestureDetector(
+                  child: Text('现金收款\n'),
+                  onTap: () {
+                    FlutterSoundTool.play([
+                      SoundInfo(path: A.cashPay, isAsset: true, duration: 1000),
+                      // SoundInfo(path: A.cashPay, isAsset: true),
+                      // SoundInfo(path: A.wxPay, isAsset: true),
+                      SoundInfo(path: A.zero, isAsset: true),
+                      SoundInfo(path: A.dian, isAsset: true),
+                      SoundInfo(path: A.zero, isAsset: true),
+                      SoundInfo(path: A.one, isAsset: true),
+                      SoundInfo(path: A.yuan, isAsset: true),
+                    ]);
+                  },
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: GestureDetector(
+                  child: Text('微信收款\n'),
+                  onTap: () {
+                    FlutterSoundTool.play([
+                      SoundInfo(path: A.wxPay, isAsset: true, duration: 1000),
+                      // SoundInfo(path: A.cashPay, isAsset: true),
+                      // SoundInfo(path: A.wxPay, isAsset: true),
                       SoundInfo(path: A.zero, isAsset: true),
                       SoundInfo(path: A.dian, isAsset: true),
                       SoundInfo(path: A.zero, isAsset: true),

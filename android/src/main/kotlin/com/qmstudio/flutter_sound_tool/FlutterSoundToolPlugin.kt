@@ -45,7 +45,8 @@ class FlutterSoundToolPlugin: FlutterPlugin, MethodCallHandler {
               val arguments = call.arguments as Map<Any,Any>
               val path = "${arguments["path"]}"
               val isAsset = "${arguments["isAsset"]}".toBoolean()
-              service.execute {  loadSoundInfo(path,isAsset)}
+              val duration = "${arguments["duration"]}".toLongOrNull() ?: 0
+              service.execute {  loadSoundInfo(path,isAsset,duration)}
           }
           "play"->{
               val arguments = call.arguments as List<Any>?
@@ -56,7 +57,8 @@ class FlutterSoundToolPlugin: FlutterPlugin, MethodCallHandler {
                           val info = el as Map<Any,Any>
                           val path = "${info["path"]}"
                           val isAsset = "${info["isAsset"]}".toBoolean()
-                          val soundInfo = loadSoundInfo(path,isAsset)
+                          val duration = "${info["duration"]}".toLongOrNull() ?: 0
+                          val soundInfo = loadSoundInfo(path,isAsset,duration)
                           list.add(soundInfo)
                       }
                       Log.e("FlutterSoundToolPlugin", "onMethodCall: $list", )
@@ -79,7 +81,7 @@ class FlutterSoundToolPlugin: FlutterPlugin, MethodCallHandler {
         return loader.getLookupKeyForAsset(assetPath)
     }
     private val cachedInfos = mutableMapOf<String,SoundInfo>()
-    private fun loadSoundInfo(path:String, isAsset:Boolean):SoundInfo{
+    private fun loadSoundInfo(path:String, isAsset:Boolean,durationMs:Long):SoundInfo{
         val cached = cachedInfos[path]
         return if(cached != null)  cached else{
             val metadataRetriever = MediaMetadataRetriever()
@@ -92,15 +94,16 @@ class FlutterSoundToolPlugin: FlutterPlugin, MethodCallHandler {
             }else{
                 metadataRetriever.setDataSource(path)
             }
-            val duration = metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+            val duration = if(durationMs>0) durationMs else metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)?.toLongOrNull() ?: 0
             val name = metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE)
             val mimetype = metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_MIMETYPE)
             val bitrate = metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_BITRATE)
-            info.duration = duration?.toLongOrNull() ?: 0
+            info.duration = duration
             info.name = name
             info.mimetype = mimetype
             info.bitrate = bitrate
             cachedInfos.put(path,info)
+            Log.e("FlutterSoundToolPlugin", "onMethodCall: ${info.duration}", )
             return  info
         }
 
