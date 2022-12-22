@@ -10,8 +10,8 @@ import 'package:flutter_midi/flutter_midi.dart';
 import 'package:flutter_sound_tool/flutter_sound_tool.dart';
 import 'package:flutter_sound_tool/sound_info.dart';
 import 'package:flutter_sound_tool_example/a.dart';
-import 'package:midi_util/midi_util.dart';
-import 'package:xmidi_player/xmidi_player.dart';
+// import 'package:midi_util/midi_util.dart';
+// import 'package:xmidi_player/xmidi_player.dart';
 
 void main() {
   runApp(const MyApp());
@@ -150,7 +150,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  late MidiPlayer player = MidiPlayer();
+  // late MidiPlayer player = MidiPlayer();
   late FlutterMidi flutterMidi = FlutterMidi();
   void loadSoundFont() async {
     flutterMidi.unmute();
@@ -160,20 +160,21 @@ class _MyAppState extends State<MyApp> {
   void testMidi() async {
     flutterMidi.playMidiNote(midi: 60);
 
-    player.midiEventsStream.listen((event) {
-      if (event is NoteOnEvent) {
-        print("NoteOnEvent:${event.noteNumber}");
-        flutterMidi.playMidiNote(midi: event.noteNumber);
-      }
-      if (event is NoteOffEvent) {
-        print("NoteOffEvent:${event.noteNumber}");
-        flutterMidi.stopMidiNote(midi: event.noteNumber);
-      }
-    });
+    // player.midiEventsStream.listen((event) {
+    //   if (event is NoteOnEvent) {
+    //     print("NoteOnEvent:${event.noteNumber}");
+    //     flutterMidi.playMidiNote(midi: event.noteNumber);
+    //   }
+    //   if (event is NoteOffEvent) {
+    //     print("NoteOffEvent:${event.noteNumber}");
+    //     flutterMidi.stopMidiNote(midi: event.noteNumber);
+    //   }
+    // });
 
-    var buffer = (await rootBundle.load("assets/audio/weddingInDream.mid"))
-        .buffer
-        .asInt8List();
+    var buffer =
+        (await rootBundle.load("assets/audio/Bach__Invention_No._13.mid"))
+            .buffer
+            .asInt8List();
     print("buffer:$buffer"); //MThd
     int pos = 0;
     String headerFlag = String.fromCharCodes(buffer, pos, pos + 4);
@@ -229,8 +230,12 @@ class _MyAppState extends State<MyApp> {
       }
     }
 
-    MidiFile file = MidiReader().parseMidiFromBuffer(buffer);
-    player.load(file);
+    // MidiFile file = MidiReader().parseMidiFromBuffer(buffer);
+    // print("object:${file.tracks}");
+    // file.tracks.forEach((e) {
+    //   print("event:${e.length}");
+    // });
+    // player.load(file);
     // player.play();
   }
 }
