@@ -10,8 +10,10 @@ import 'package:flutter_midi/flutter_midi.dart';
 import 'package:flutter_sound_tool/flutter_sound_tool.dart';
 import 'package:flutter_sound_tool/sound_info.dart';
 import 'package:flutter_sound_tool_example/a.dart';
-// import 'package:midi_util/midi_util.dart';
-// import 'package:xmidi_player/xmidi_player.dart';
+import 'package:xmidi_player/xmidi_player.dart';
+
+import 'package:midi_util/midi_util.dart';
+import 'package:xmidi_player/xmidi_player.dart';
 
 void main() {
   runApp(const MyApp());
@@ -150,92 +152,112 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  // late MidiPlayer player = MidiPlayer();
+  late MidiPlayer player = MidiPlayer();
   late FlutterMidi flutterMidi = FlutterMidi();
+  late MidiFile midiFile;
   void loadSoundFont() async {
     flutterMidi.unmute();
     flutterMidi.prepare(sf2: await rootBundle.load("assets/audio/Piano.sf2"));
+    player.midiEventsStream.listen((event) {
+      if (event is NoteOnEvent) {
+        print("NoteOnEvent:${event.noteNumber}");
+        flutterMidi.playMidiNote(midi: event.noteNumber);
+      }
+      if (event is NoteOffEvent) {
+        print("NoteOffEvent:${event.noteNumber}");
+        flutterMidi.stopMidiNote(midi: event.noteNumber);
+      }
+    });
+    var buffer = (await rootBundle.load("assets/audio/weddingInDream.mid"))
+        .buffer
+        .asUint8List();
+    midiFile = MidiReader().parseMidiFromBuffer(buffer);
+    player.load(midiFile);
   }
 
+  int index = 0;
   void testMidi() async {
-    flutterMidi.playMidiNote(midi: 60);
+    // flutterMidi.playMidiNote(midi: 60);
 
-    // player.midiEventsStream.listen((event) {
-    //   if (event is NoteOnEvent) {
-    //     print("NoteOnEvent:${event.noteNumber}");
-    //     flutterMidi.playMidiNote(midi: event.noteNumber);
+    // Open a file containing midi data
+
+    // Construct a midi parser
+
+// You can now access your parsed [MidiFile]
+    // print("buffer:$buffer"); //MThd
+    // int pos = 0;
+    // String headerFlag = String.fromCharCodes(buffer, pos, pos + 4);
+    // print("header:$headerFlag");
+    // pos += 4;
+    // int headerLen = buffer
+    //     .sublist(pos, pos + 4)
+    //     .buffer
+    //     .asByteData()
+    //     .getInt32(0, Endian.big);
+    // print("headerLen:$headerLen");
+    // pos += 4;
+    // int fileFormat = buffer
+    //     .sublist(pos, pos + 2)
+    //     .buffer
+    //     .asByteData()
+    //     .getInt16(0, Endian.big);
+    // print("fileFormat:$fileFormat");
+    // pos += 2;
+    // int trackNum = buffer
+    //     .sublist(pos, pos + 2)
+    //     .buffer
+    //     .asByteData()
+    //     .getInt16(0, Endian.big);
+    // print("trackNum:$trackNum");
+    // pos += 2;
+    // //ticks dd dd 指定基本时间格式，dd dd 的最高位为标记位，0为采用ticks计时，后面的数据为一个4分音符的ticks；1为SMPTE格式计时，后面的数值则是定义每秒中SMTPE帧的数量及每个SMTPE帧的tick。用
+    // int timeType = buffer[pos] >> 7;
+    // if (timeType == 0) {
+    //   //ticks
+    //   int ticks = (buffer[pos] & 0x7F) * (1 << 8) + buffer[pos + 1];
+    //   print("ticks:$ticks");
+    // }
+    // if (timeType == 1) {
+    //   //ticks SMTPE
+    // }
+
+    // pos += 2;
+    // print("pos:$pos");
+    // print("pos:${buffer[pos]}");
+    // String flag = String.fromCharCodes(buffer, pos, pos + 4);
+    // print("flag:$flag");
+    // while (pos < buffer.length) {
+    //   if (flag == "MTrk") {
+    //     pos += 4;
+    //     int len = buffer
+    //         .sublist(pos, pos + 4)
+    //         .buffer
+    //         .asByteData()
+    //         .getInt32(0, Endian.big);
+    //     print("posLen:$len");
+    //     pos += len;
     //   }
-    //   if (event is NoteOffEvent) {
-    //     print("NoteOffEvent:${event.noteNumber}");
-    //     flutterMidi.stopMidiNote(midi: event.noteNumber);
-    //   }
-    // });
+    // }
 
-    var buffer =
-        (await rootBundle.load("assets/audio/Bach__Invention_No._13.mid"))
-            .buffer
-            .asInt8List();
-    print("buffer:$buffer"); //MThd
-    int pos = 0;
-    String headerFlag = String.fromCharCodes(buffer, pos, pos + 4);
-    print("header:$headerFlag");
-    pos += 4;
-    int headerLen = buffer
-        .sublist(pos, pos + 4)
-        .buffer
-        .asByteData()
-        .getInt32(0, Endian.big);
-    print("headerLen:$headerLen");
-    pos += 4;
-    int fileFormat = buffer
-        .sublist(pos, pos + 2)
-        .buffer
-        .asByteData()
-        .getInt16(0, Endian.big);
-    print("fileFormat:$fileFormat");
-    pos += 2;
-    int trackNum = buffer
-        .sublist(pos, pos + 2)
-        .buffer
-        .asByteData()
-        .getInt16(0, Endian.big);
-    print("trackNum:$trackNum");
-    pos += 2;
-    //ticks dd dd 指定基本时间格式，dd dd 的最高位为标记位，0为采用ticks计时，后面的数据为一个4分音符的ticks；1为SMPTE格式计时，后面的数值则是定义每秒中SMTPE帧的数量及每个SMTPE帧的tick。用
-    int timeType = buffer[pos] >> 7;
-    if (timeType == 0) {
-      //ticks
-      int ticks = (buffer[pos] & 0x7F) * (1 << 8) + buffer[pos + 1];
-      print("ticks:$ticks");
-    }
-    if (timeType == 1) {
-      //ticks SMTPE
-    }
-
-    pos += 2;
-    print("pos:$pos");
-    print("pos:${buffer[pos]}");
-    String flag = String.fromCharCodes(buffer, pos, pos + 4);
-    print("flag:$flag");
-    while (pos < buffer.length) {
-      if (flag == "MTrk") {
-        pos += 4;
-        int len = buffer
-            .sublist(pos, pos + 4)
-            .buffer
-            .asByteData()
-            .getInt32(0, Endian.big);
-        print("posLen:$len");
-        pos += len;
-      }
-    }
-
-    // MidiFile file = MidiReader().parseMidiFromBuffer(buffer);
-    // print("object:${file.tracks}");
-    // file.tracks.forEach((e) {
-    //   print("event:${e.length}");
-    // });
-    // player.load(file);
     // player.play();
+    bool isEnd = true;
+    midiFile.tracks.forEach((e) {
+      if (index < e.length) {
+        isEnd = false;
+        var event = e[index];
+        if (event is NoteOnEvent) {
+          print("NoteOnEvent:${event.noteNumber}");
+          flutterMidi.playMidiNote(midi: event.noteNumber);
+        }
+        if (event is NoteOffEvent) {
+          print("NoteOffEvent:${event.noteNumber}");
+          flutterMidi.stopMidiNote(midi: event.noteNumber);
+        }
+      }
+    });
+    if (isEnd) {
+      index = -1;
+    }
+    index++;
   }
 }
