@@ -71,80 +71,100 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Container(
+              //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              //   child: GestureDetector(
+              //     child: Text('新商品'),
+              //     onTap: () {
+              //       FlutterSoundTool.play([
+              //         SoundInfo(path: A.newComm, isAsset: true),
+              //       ]);
+              //     },
+              //   ),
+              // ),
+              // Container(
+              //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              //   child: GestureDetector(
+              //     child: Text('支付宝收款\n'),
+              //     onTap: () {
+              //       FlutterSoundTool.play([
+              //         SoundInfo(path: A.aliPay, isAsset: true),
+              //         // SoundInfo(path: A.cashPay, isAsset: true),
+              //         // SoundInfo(path: A.wxPay, isAsset: true),
+              //         SoundInfo(path: A.zero, isAsset: true),
+              //         SoundInfo(path: A.dian, isAsset: true),
+              //         SoundInfo(path: A.zero, isAsset: true),
+              //         SoundInfo(path: A.one, isAsset: true),
+              //         SoundInfo(path: A.yuan, isAsset: true),
+              //       ]);
+              //     },
+              //   ),
+              // ),
+              // Container(
+              //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              //   child: GestureDetector(
+              //     child: Text('现金收款\n'),
+              //     onTap: () {
+              //       FlutterSoundTool.play([
+              //         SoundInfo(path: A.cashPay, isAsset: true, duration: 1000),
+              //         // SoundInfo(path: A.cashPay, isAsset: true),
+              //         // SoundInfo(path: A.wxPay, isAsset: true),
+              //         SoundInfo(path: A.zero, isAsset: true),
+              //         SoundInfo(path: A.dian, isAsset: true),
+              //         SoundInfo(path: A.zero, isAsset: true),
+              //         SoundInfo(path: A.one, isAsset: true),
+              //         SoundInfo(path: A.yuan, isAsset: true),
+              //       ]);
+              //     },
+              //   ),
+              // ),
+              // Container(
+              //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              //   child: GestureDetector(
+              //     child: Text('微信收款\n'),
+              //     onTap: () {
+              //       FlutterSoundTool.play([
+              //         SoundInfo(path: A.wxPay, isAsset: true, duration: 1000),
+              //         // SoundInfo(path: A.cashPay, isAsset: true),
+              //         // SoundInfo(path: A.wxPay, isAsset: true),
+              //         SoundInfo(path: A.zero, isAsset: true),
+              //         SoundInfo(path: A.dian, isAsset: true),
+              //         SoundInfo(path: A.zero, isAsset: true),
+              //         SoundInfo(path: A.one, isAsset: true),
+              //         SoundInfo(path: A.yuan, isAsset: true),
+              //       ]);
+              //     },
+              //   ),
+              // ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: GestureDetector(
-                  child: Text('新商品'),
+                  child: Text('点击完整播放\n'),
                   onTap: () {
-                    FlutterSoundTool.play([
-                      SoundInfo(path: A.newComm, isAsset: true),
-                    ]);
+                    pausePer = false;
+                    player.play();
                   },
                 ),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: GestureDetector(
-                  child: Text('支付宝收款\n'),
+                  child: Text('连续点击\n'),
                   onTap: () {
-                    FlutterSoundTool.play([
-                      SoundInfo(path: A.aliPay, isAsset: true),
-                      // SoundInfo(path: A.cashPay, isAsset: true),
-                      // SoundInfo(path: A.wxPay, isAsset: true),
-                      SoundInfo(path: A.zero, isAsset: true),
-                      SoundInfo(path: A.dian, isAsset: true),
-                      SoundInfo(path: A.zero, isAsset: true),
-                      SoundInfo(path: A.one, isAsset: true),
-                      SoundInfo(path: A.yuan, isAsset: true),
-                    ]);
+                    pausePer = true;
+                    player.play();
                   },
                 ),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: GestureDetector(
-                  child: Text('现金收款\n'),
-                  onTap: () {
-                    FlutterSoundTool.play([
-                      SoundInfo(path: A.cashPay, isAsset: true, duration: 1000),
-                      // SoundInfo(path: A.cashPay, isAsset: true),
-                      // SoundInfo(path: A.wxPay, isAsset: true),
-                      SoundInfo(path: A.zero, isAsset: true),
-                      SoundInfo(path: A.dian, isAsset: true),
-                      SoundInfo(path: A.zero, isAsset: true),
-                      SoundInfo(path: A.one, isAsset: true),
-                      SoundInfo(path: A.yuan, isAsset: true),
-                    ]);
-                  },
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: GestureDetector(
-                  child: Text('微信收款\n'),
-                  onTap: () {
-                    FlutterSoundTool.play([
-                      SoundInfo(path: A.wxPay, isAsset: true, duration: 1000),
-                      // SoundInfo(path: A.cashPay, isAsset: true),
-                      // SoundInfo(path: A.wxPay, isAsset: true),
-                      SoundInfo(path: A.zero, isAsset: true),
-                      SoundInfo(path: A.dian, isAsset: true),
-                      SoundInfo(path: A.zero, isAsset: true),
-                      SoundInfo(path: A.one, isAsset: true),
-                      SoundInfo(path: A.yuan, isAsset: true),
-                    ]);
-                  },
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: GestureDetector(
-                  child: Text('MIDI\n'),
-                  onTap: () {
-                    testMidi();
-                  },
-                ),
-              ),
+              // Container(
+              //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              //   child: GestureDetector(
+              //     child: Text('MIDI\n'),
+              //     onTap: () {
+              //       testMidi();
+              //     },
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -152,6 +172,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  bool pausePer = false;
   late MidiPlayer player = MidiPlayer();
   late FlutterMidi flutterMidi = FlutterMidi();
   late MidiFile midiFile;
@@ -162,10 +183,16 @@ class _MyAppState extends State<MyApp> {
       if (event is NoteOnEvent) {
         print("NoteOnEvent:${event.noteNumber}");
         flutterMidi.playMidiNote(midi: event.noteNumber);
+        if (pausePer) {
+          player.pause();
+        }
       }
       if (event is NoteOffEvent) {
         print("NoteOffEvent:${event.noteNumber}");
         flutterMidi.stopMidiNote(midi: event.noteNumber);
+        if (pausePer) {
+          player.pause();
+        }
       }
     });
     var buffer = (await rootBundle.load("assets/audio/weddingInDream.mid"))
